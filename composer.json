@@ -1,0 +1,13 @@
+{
+    "name": "weoka/stakecube-module",
+    "description": "Stakecube exchange module for the Buy Bridge",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "weoka",
+            "email": "daniel@weoka.pro"
+        }
+    ],
+    "require": {}
+}

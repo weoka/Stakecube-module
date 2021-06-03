@@ -1,0 +1,18 @@
+# Blacklist files/folders in same directory as the .gitignore file
+/*
+
+# Whitelist some files
+!.gitignore
+!README.md
+!composer.json
+!LICENSE
+
+# Whitelist library code
+!lib/
+
+# Macos shitty files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
