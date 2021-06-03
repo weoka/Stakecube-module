@@ -9,5 +9,12 @@
             "email": "daniel@weoka.pro"
         }
     ],
-    "require": {}
+    "require": {
+        "weoka/stakecube-php-sdk": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "StakecubeModule\\": "lib/"
+        }
+    }
 }
