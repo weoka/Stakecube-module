@@ -111,11 +111,13 @@ class StakecubeModule{
             else{
                 $side = 'SELL';
             }
+
+            $order = $this->stakecube->postOrder($market, $side, $price, $amount);
+            return $order;
         }
         catch(\Throwable $e)
         {
             throw $e;
         }
     }
-
 }
