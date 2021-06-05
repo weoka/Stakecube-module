@@ -49,11 +49,11 @@ class StakecubeModule{
             $market = "$tradeMarket"."_"."$baseMarket";
             if($coinToSell == $tradeMarket)
             {
-                $side = 'buy';
+                $side = 'BUY';
                 $array_key = 'bids';
             }
             else{
-                $side = 'sell';
+                $side = 'SELL';
                 $array_key = 'asks';
             }
             $market = array_reverse(($this->stakecube->getOrderbook($market, $side))['result'][$array_key]);
@@ -71,13 +71,13 @@ class StakecubeModule{
                 
                 if( ($amount - $filled_sell) > $order_total)
                 {
-                    $filled_sell += $order_total;
                     $filled_buy += $order_amount; 
+                    $filled_sell += $order_total;
                 }
                 else
                 {
+                    $filled_buy += ($amount-$filled_sell)/$order_price;
                     $filled_sell += ($amount - $filled_sell);
-                    $filled_buy += ($amount - $filled_sell)/$order_price;
                 }
 
                 array_push($prices, $order_price);
@@ -90,7 +90,8 @@ class StakecubeModule{
             return [
                 "necessary_bid" => $prices[count($prices)-1],
                 "average_price" => number_format($average_buy_value, 8),
-                "total_order" => $filled_buy
+                "filled_sell" => number_format($filled_sell,8),
+                "total_order" => number_format($filled_buy,5)
             ];
         }
         catch(\Throwable $e)
@@ -99,5 +100,22 @@ class StakecubeModule{
         }
     }
 
+    public function addOrder($baseMarket, $tradeMarket, $coinToSell, $amount, $price)
+    {
+        try{
+            $market = "$tradeMarket"."_"."$baseMarket";
+            if($coinToSell == $tradeMarket)
+            {
+                $side = 'BUY';
+            }
+            else{
+                $side = 'SELL';
+            }
+        }
+        catch(\Throwable $e)
+        {
+            throw $e;
+        }
+    }
 
 }
