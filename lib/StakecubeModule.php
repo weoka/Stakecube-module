@@ -16,7 +16,14 @@ class StakecubeModule{
     {
         try{
            $account = $this->stakecube->getAccount();
-           return $account['result']['wallets'][$coin]['address']; 
+           $wallets = $account['result']['wallets'];
+           foreach($wallets as $wallet)
+           {
+               if($wallet['asset'] == $coin)
+               {
+                   return $wallet['address'];
+               }
+           } 
         }
         catch(\Throwable $e)
         {
