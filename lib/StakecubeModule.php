@@ -120,4 +120,16 @@ class StakecubeModule{
             throw $e;
         }
     }
+
+    public function cancelOrder($orderId)
+    {
+        try{
+            $order = $this->stakecube->cancel($orderId);
+            return $order;
+        }
+        catch(\Throwable $e)
+        {
+            throw $e;
+        }
+    }
 }
