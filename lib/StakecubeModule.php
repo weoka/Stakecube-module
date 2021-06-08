@@ -2,8 +2,6 @@
 
 namespace StakecubeModule;
 
-require_once('vendor/autoload.php');
-
 use Stakecube\Stakecube;
 
 class StakecubeModule{
