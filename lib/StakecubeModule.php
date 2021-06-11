@@ -133,9 +133,9 @@ class StakecubeModule{
 
             return [
                 "necessary_bid" => $prices[count($prices)-1],
-                "average_price" => number_format($average_buy_value, 8),
-                "filled_sell" => number_format($filled_sell,8),
-                "filled_buy" => number_format($filled_buy,8)
+                "average_price" => $average_buy_value,
+                "filled_sell" => $filled_sell,
+                "filled_buy" => $filled_buy
             ];
         }
         catch(\Throwable $e)
