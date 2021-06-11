@@ -10,6 +10,28 @@ class StakecubeModule{
         $this->stakecube = new Stakecube($public_key, $private_key);
     }
 
+    public function checkIfPairExists($coin1, $coin2)
+    {
+        try{
+            $pair = $coin1.'_'.$coin2;
+            $alternative_pair = $coin2.'_'.$coin1;
+            
+            try{
+                $this->stakecube->getTrades($pair);
+            }
+            catch(\Throwable $e)
+            {
+                $this->stakecube->getTrades($alternative_pair);
+            }
+            
+            return true;
+        }
+        catch(\Throwable $e)
+        {
+            return false;
+        }
+    }
+    
     public function getDepositAddress($coin)
     {
         try{
