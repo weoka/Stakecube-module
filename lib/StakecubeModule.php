@@ -84,21 +84,22 @@ class StakecubeModule{
                     $order_price = $market[$position]['price'];
                     $order_total = $market[$position]['amount'];
                     
-                    if( ($amount - $filled_sell) > $order_total)
+                    if( ($amount - $filled_sell) >= $order_total)
                     {
                         $filled_sell += $order_total;
-                        $filled_buy += $filled_sell*$order_price; 
+                        $filled_buy += $order_total*$order_price; 
                     }
                     else
                     {
+                        $filled_buy += ($amount - $filled_sell) * $order_price;
                         $filled_sell += ($amount - $filled_sell);
-                        $filled_buy += $filled_sell * $order_price;
                     }
 
                     array_push($prices, $order_price);
 
                     $position += 1;
                 }
+                $average_buy_value = $filled_buy/$amount;
             }
             else{
                 $side = 'SELL';
@@ -127,15 +128,17 @@ class StakecubeModule{
 
                     $position += 1;
                 }
+
+                $average_buy_value = number_format($amount/$filled_buy,8);
             }
 
-            $average_buy_value = array_sum($prices)/count($prices);
+            
 
             return [
                 "necessary_bid" => $prices[count($prices)-1],
-                "average_price" => $average_buy_value,
-                "filled_sell" => $filled_sell,
-                "filled_buy" => $filled_buy
+                "average_price" => number_format($average_buy_value, 8,'.',''),
+                "filled_sell" => number_format($filled_sell, 8,'.',''),
+                "filled_buy" => number_format($filled_buy, 8,'.','') 
             ];
         }
         catch(\Throwable $e)
